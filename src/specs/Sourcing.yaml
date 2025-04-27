@@ -1,0 +1,431 @@
+openapi: 3.1.0
+info:
+  title: "Sourcing Gateway API"
+  description: "Sourcing Gateway API"
+  version: 1.0.0
+servers:
+  - url: 'http//localhost:3000'
+    description: "Local server"
+  - url: 'https://api.example.com'
+    description: "Production API Gateway"
+paths:
+  /api/FTD-AUTH/auth/register/student:
+    post:
+      tags:
+        - "FTD-AUTH"
+      summary: "Create a student"
+      description: "Create an endpoint for signing up the student"
+      operationId: signup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterStudentRequestDTO'
+
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+
+
+
+  /api/FTD-AUTH/auth/register/enterprise:
+    post:
+      tags:
+        - "FTD-AUTH"
+      summary: "Create an enterprise"
+      description: "Create an endpoint for signing up enterprise"
+      operationId: signup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterEnterpriseDTO'
+
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+
+
+  /api/FTD-AUTH/auth/login:
+    post:
+      tags:
+        - "FTD-AUTH"
+      summary: "Login request"
+      description: "Login any user"
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '404':
+          description: Not Found
+        '400':
+          description: Bad Request
+
+
+  /api/FTD-AUTH/auth/password/change:
+    post:
+      tags:
+        - "FTD-AUTH"
+      summary: "Change password request"
+      description: "Request used to change the user password"
+      security:
+        - bearerAuth: []
+      operationId: changePassword
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordDTO'
+
+      responses:
+        '200':
+          description: Success
+        '404':
+          description: Not Found
+        '400':
+          description: Bad Request
+
+  /api/FTD-AUTH/auth/password/forgot:
+    post:
+      tags:
+        - "FTD-AUTH"
+      summary: "forgot password request"
+      description: "Request change the password when the old one has been forgotten"
+      operationId: resetPasswordRequest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForgotPasswordDTO'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+
+
+  /api/FTD-AUTH/auth/password/reset:
+    post:
+      summary: "Reset password"
+      operationId: passwordReset
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordResetDTO'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+
+  /api/FTD-AUTH/password/reset-password:
+    post:
+      tags:
+        - "FTD-AUTH"
+      summary: "Reset the password"
+      description: "after received the token and enter it enter the new password"
+      operationId: resetPassword
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordResetRequestDTO'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+
+
+  /api/FTD-AUTH/user/student-update/{id}:
+    patch:
+      tags:
+        - "FTD-AUTH"
+      summary: "Update student information"
+      description: "Update any modifiable field of a user"
+      operationId: updateStudent
+
+
+
+
+components:
+  schemas:
+    RegisterStudentRequestDTO:
+      type: object
+      required:
+        - name
+        - surname
+        - email
+        - password
+        - country
+        - schoolLevel
+        - specification
+        - preference
+        - notifications
+      properties:
+        name:
+          type: string
+          example: "name"
+        surname:
+          type: string
+          example: "surname"
+        email:
+          type: string
+        password:
+          type: string
+        country:
+          type: string
+        schoolLevel:
+          type: integer
+        specification:
+          type: string
+          enum:
+            - DEVELOPMENT
+            - NETWORKING
+            - DATA
+            - AI
+            - CYBERSECURITY
+            - OTHER
+        preference:
+          type: array
+          items:
+            type: string
+        notifications:
+          type: boolean
+        file:
+          $ref: "#/components/schemas/FileType"
+        github:
+          $ref: "#/components/schemas/LinkType"
+        portfolio:
+          $ref: "#/components/schemas/LinkType"
+        linkedin:
+          $ref: "#/components/schemas/LinkType"
+
+    LinkType:
+      type: string
+      format: url
+      pattern: "^https?://.+"
+
+    FileType:
+      type: object
+      required:
+        - fileName
+        - contentType
+      properties:
+        fileName:
+          type: string
+        contentType:
+          type: string
+        content:
+          type: string
+          format: binary
+        size:
+          type: integer
+        url:
+          type: string
+          format: uri
+
+    LoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+          example: "user@enterprise.com"
+        password:
+          type: string
+          format: password
+
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        isAdmin:
+          type: boolean
+          example: true
+        isEnterprise:
+          type: boolean
+          example: true
+  
+    RegisterEnterpriseDTO:
+      type: object
+      required:
+        - companyName
+        - phoneNumber
+        - sectorOfActivity
+        - professionalEmail
+        - headOfficeAddress
+        - localisation
+        - RCCM
+        - NIU
+        - legalStatus
+        - description
+        - password
+        - opportunities
+      properties:
+        companyName:
+          type: string
+        phoneNumber:
+          type: integer
+        sectorOfActivity:
+          type: string
+        professionalEmail:
+          type: string
+          format: email
+          example: "user@enterprise.com"
+        headOfficeAddress:
+          type: string
+        localisation:
+          $ref: '#/components/schemas/LocalisationDTO'
+        RCCM:
+          type: string
+          description: "Numéro du registre du commerce et du crédit mobilier(RCCM) the type can change"
+          example: "CD/KIN/RCCM/14-B-5024"
+        NIU:
+          type: string
+          description: "Numéro d'identifiant unique"
+          example: ["12345678901234", "A2023-59871265", "FR98765432100"]
+        legalStatus:
+          type: string;
+          enum:
+            - EI
+            - EIRL
+            - EURL
+            - SASU
+            - SARL
+            - SAS
+            - SASU
+            - SA
+            - SNC
+            - SCP
+            - SNC
+            - SCS
+            - SCOP
+            - SCI
+        description:
+          type: string
+        password:
+          type: string
+          format: password
+        numberOfStatisticDeclaration:
+          type: string
+        taxComplianceCertificate:
+          $ref: '#/components/schemas/FileType'
+          description: "is supposed to be a file but can change in the future with more informations"
+        internGenerallyAsked:
+          type: string,
+          #certains doivent être ajouter en fonction des besoins
+          enum:
+            - development
+            - devops
+            - cybersecurity
+            - telecom
+            - networking
+        usualDuration:
+          type: integer
+        advantagesProposal:
+          type: string
+          enum:
+            - transport
+            - salary
+            - food
+        opportunities:
+          type: boolean
+
+
+    LocalisationDTO:
+      type: object
+      properties:
+        placeId:
+          type: string
+          description: "Unique id of the place given by the api (ex: google places ID)"
+          example: "ChIJD7fiBh9u5kcRYJSMaMOCCwQ"
+        formattedAddress:
+          type: string
+          description: "Formatted address return by the API"
+          example: "Avenue des Champs-Elysées, 7500 Paris, France"
+        coordinates:
+          type: object
+          properties:
+            latitude:
+              type: number
+              forma: double
+              example: 48.8566
+            longitude:
+              type: number
+              format: double
+              example: 2.3522
+        components:
+          type: object
+          description: "Detailed address component (can change depend on the api used)"
+          additionalProperties: true
+
+
+    ChangePasswordDTO:
+      type: object
+      required:
+        - email
+        - oldPassword
+        - newPassword
+      properties:
+        email:
+          type: string
+          format: email
+        oldPassword:
+          type: string
+          format: password
+        newPassword:
+          type: string
+          format: password
+
+    ForgotPasswordDTO:
+      type: object
+      required:
+        - email
+      properties:
+        email:
+          type: string
+          format: email
+
+    PasswordResetDTO:
+      type: object
+      required:
+        - token
+      properties:
+        token:
+          type: string
+
+    PasswordResetRequestDTO:
+      type: object
+      required:
+        - newPassword
+      properties:
+        newPassword:
+          type: string
+          format: password
