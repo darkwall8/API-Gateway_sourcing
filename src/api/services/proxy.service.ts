@@ -18,7 +18,7 @@ export const createServiceProxy = (
     on: {
       proxyReq: (proxyReq, req, res) =>{
         const expressReq = req as unknown as Request;
-        proxyReq.setHeader('', 'API-Gateway')
+        proxyReq.setHeader('X-Gateway-secret', 'API-Gateway')
 
         if (expressReq.body && Object.keys(expressReq.body).length > 0) {
           const bodyData = JSON.stringify(expressReq.body);

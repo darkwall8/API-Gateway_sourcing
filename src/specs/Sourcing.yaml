@@ -272,7 +272,7 @@ components:
         isEnterprise:
           type: boolean
           example: true
-  
+
     RegisterEnterpriseDTO:
       type: object
       required:
