@@ -12,11 +12,16 @@ const envVarsSchema = Joi.object()
     PORT: Joi.number().default(3000),
     ALLOWED_ORIGINS: Joi.string().required(),
     RATE_LIMIT: Joi.number().default(100),
-    SMTP_HOST: Joi.string().description('server that will send the emails'),
-    SMTP_PORT: Joi.number().description('port to connect to the email server.'),
-    SMTP_USERNAME: Joi.string().description('username for email server.'),
-    SMTP_PASSWORD: Joi.string().description('password for the email server.'),
-    EMAIL_FROM: Joi.string().description('the from field in the emails sent by the app')
+    SMTP_HOST: Joi.string().description("server that will send the emails"),
+    SMTP_PORT: Joi.number().description("port to connect to the email server."),
+    SMTP_USERNAME: Joi.string().description("username for email server."),
+    SMTP_PASSWORD: Joi.string().description("password for the email server."),
+    EMAIL_FROM: Joi.string().description(
+      "the from field in the emails sent by the app",
+    ),
+    JWT_SECRET: Joi.string().required().min(32),
+    JWT_EXPIRES: Joi.string().required(),
+    API_KEY: Joi.string().required(),
   })
   .unknown();
 
@@ -43,8 +48,16 @@ export const appConfig = {
       auth: {
         user: envVars.SMTP_USERNAME,
         pass: envVars.SMTP_PASSWORD,
-      }
+      },
     },
     from: envVars.EMAIL_FROM,
-  }
+  },
+  jwt: {
+    secret: envVars.JWT_SECRET,
+    expiresIn: envVars.JWT_EXPIRES,
+  },
+    apiKeys: new Map([
+        ["offers_service", envVars.API_KEY],
+        ["mail_service", envVars.API_KEY],
+    ]),
 };

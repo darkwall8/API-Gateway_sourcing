@@ -13,6 +13,7 @@ const envVarsSchema = Joi.object()
     SMTP_SERVICE_URL: Joi.string().uri().required(),
     REPORTING_HISTORY_SERVICE_URL: Joi.string().uri().required(),
     MODERATION_SERVICE: Joi.string().uri().required(),
+    IMM: Joi.string().uri().required(),
     NODE_ENV: Joi.string()
       .valid("development", "production", "test")
       .required(),
@@ -24,61 +25,68 @@ const { value: envVars, error } = envVarsSchema.validate(process.env);
 if (error) throw new Error(`Config validation error: ${error.message}`);
 
 export const proxyConfig = {
-    profileManagementService: {
-        target: envVars.PROFILE_MANAGEMENT_SERVICE_URL,
-        pathRewrite: {
-            "^profile": "/api/profile",
-        },
-        changeOrigin: true,
-        secure: envVars.NODE_ENV === "production",
+  profileManagementService: {
+    target: envVars.PROFILE_MANAGEMENT_SERVICE_URL,
+    pathRewrite: {
+      "^profile": "/api/profile",
     },
-    offersService: {
-        target: envVars.OFFERS_SERVICE_URL,
-        pathRewrite: {
-            "^offers": "/api/offers",
-        },
-        changeOrigin: true,
-        secure: envVars.NODE_ENV === "production",
+    changeOrigin: true,
+    secure: envVars.NODE_ENV === "production",
+  },
+  offersService: {
+    target: envVars.OFFERS_SERVICE_URL,
+    pathRewrite: {
+      "^offers": "/api/offers",
     },
-    applicationService: {
-        target: envVars.APPLICATION_SERVICE_URL,
-        pathRewrite: {
-            "^application": "/api/application",
-        },
-        changeOrigin: true,
-        secure: envVars.NODE_ENV === "production",
+    changeOrigin: true,
+    secure: envVars.NODE_ENV === "production",
+  },
+  applicationService: {
+    target: envVars.APPLICATION_SERVICE_URL,
+    pathRewrite: {
+      "^application": "/api/application",
     },
-    messagingService: {
-        target: envVars.MESSAGING_SERVICE_URL,
-        pathRewrite: {
-            "^messaging": "/api/messaging",
-        },
-        changeOrigin: true,
-        secure: envVars.NODE_ENV === "production",
+    changeOrigin: true,
+    secure: envVars.NODE_ENV === "production",
+  },
+  messagingService: {
+    target: envVars.MESSAGING_SERVICE_URL,
+    pathRewrite: {
+      "^messaging": "/api/messaging",
     },
-    mailService: {
-        target: envVars.SMTP_SERVICE_URL,
-        pathRewrite: {
-            "^mail": "/api/mail",
-        },
-        changeOrigin: true,
-        secure: envVars.NODE_ENV === "production",
+    changeOrigin: true,
+    secure: envVars.NODE_ENV === "production",
+  },
+  mailService: {
+    target: envVars.SMTP_SERVICE_URL,
+    pathRewrite: {
+      "^mail": "/api/mail",
     },
-    reportingAndHistoryService: {
-        target: envVars.REPORTING_HISTORY_SERVICE_URL,
-        pathRewrite: {
-            "^reportingAndHistory": "/api/reportingAndHistory",
-        },
-        changeOrigin: true,
-        secure: envVars.NODE_ENV === "production",
+    changeOrigin: true,
+    secure: envVars.NODE_ENV === "production",
+  },
+  reportingAndHistoryService: {
+    target: envVars.REPORTING_HISTORY_SERVICE_URL,
+    pathRewrite: {
+      "^reportingAndHistory": "/api/reportingAndHistory",
     },
-    moderationService: {
-        target: envVars.MODERATION_SERVICE,
-        pathRewrite: {
-            "^moderation": "/api/moderation",
-        },
-        changeOrigin: true,
-        secure: envVars.NODE_ENV === "production",
+    changeOrigin: true,
+    secure: envVars.NODE_ENV === "production",
+  },
+  moderationService: {
+    target: envVars.MODERATION_SERVICE,
+    pathRewrite: {
+      "^moderation": "/api/moderation",
     },
-
-}
+    changeOrigin: true,
+    secure: envVars.NODE_ENV === "production",
+  },
+  IMM: {
+      target: envVars.IMM,
+      pathRewrite: {
+          "^IMM": "/api/IMM",
+      },
+      changeOrigin: true,
+      secure: envVars.NODE_ENV === "production",
+  },
+};

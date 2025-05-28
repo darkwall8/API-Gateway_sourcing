@@ -1,6 +1,7 @@
 import express from "express";
 import cors from 'cors'
 import helmet from "helmet";
+import routes from "./api/router/index"
 import { config } from './config'
 import {loggerMiddleware} from "./api/middleware/logger.middleware";
 import {apiLimiter} from "./api/middleware/rate-limiter.middleware";
@@ -22,6 +23,8 @@ app.get("/status", (req, res, next) => {
         environment: config.app.environment
     })
 })
+
+app.use("/", routes)
 
 app.use((req, res, next) => {
     res.status(404).json({

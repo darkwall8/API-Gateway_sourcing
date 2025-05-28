@@ -92,14 +92,9 @@ npm start
 │   │   │   ├── rate-limiter.middleware.ts
 │   │   │   └── validation.middleware.ts
 │   │   ├── router
-│   │   │   ├── applicationService.routes.ts
 │   │   │   ├── auth.routes.ts
 │   │   │   ├── index.ts
-│   │   │   ├── mail.routes.ts
-│   │   │   ├── messaginService.routes.ts
-│   │   │   ├── moderation.routes.ts
-│   │   │   ├── profileGestuaire.routes.ts
-│   │   │   └── reportingAndHistory.routes.ts
+│   │   │   └── services.routes.ts
 │   │   └── services
 │   │       └── proxy.service.ts
 │   ├── app.ts
@@ -151,4 +146,4 @@ no needs for now
 
 ## Licence 
 
-&copy; FTD all right reserved
+all right reserved &copy; FTD 

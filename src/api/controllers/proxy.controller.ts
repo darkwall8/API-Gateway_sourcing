@@ -57,13 +57,22 @@ const createModerationServiceProxy = () => {
   )
 }
 
+const createIMMServiceProxy = () => {
+  createServiceProxy(
+      'IMM',
+      proxyConfig.IMM.target,
+      proxyConfig.IMM.pathRewrite
+
+  )
+}
+
 export const proxy = {
   createApplicationServiceProxy,
-  createServiceProxy,
   createProfileManagementServiceProxy,
   createOffersServiceProxy,
   createMessagingServiceProxy,
   createMailServiceProxy,
   createReportingAndHistoryServiceProxy,
   createModerationServiceProxy,
+  createIMMServiceProxy
 }
