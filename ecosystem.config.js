@@ -6,7 +6,7 @@ module.exports = {
         exec_mode: 'cluster',
 
         autorestart: true,
-        watch: false,
+        watch: true,
         max_memory_restart: '1G',
 
         env:{
@@ -18,9 +18,9 @@ module.exports = {
             PORT: 3000,
         },
 
-        log_file: './logs/combined.log',
-        out_file: './logs/out.log',
-        error_file: './logs/error.log',
+        out_file: '/app/logs/out.log',
+        error_file: '/app/logs/error.log',
+        log_file: '/app/logs/combined.log',
         log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
 
         min_uptime: '10s',
