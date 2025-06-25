@@ -10,6 +10,21 @@ services:
     environment:
       - NODE_ENV=${NODE_ENV:-production}
       - PORT=3000
+      - ALLOWED_ORIGINS=*
+      - JWT_SECRET=0580eef49a4cb37116418eeca83423d85784eb7aa477ec4afe952a45f419c92868287254
+      - JWT_EXPIRES=1h
+      - API_KEY=sourcing_microservice_default_key_ftd@237
+      - GATEWAY_SECRET=7fba8f98e172836d294b24d70b1842c94c795afa
+      - GATEWAY_FORWARDER=127.0.0.1
+      - GATEWAY_REAL_IP=127.0.0.1
+      - PROFILE_MANAGEMENT_SERVICE_URL=http://localhost:8080
+      - OFFERS_SERVICE_URL=http://localhost:8080
+      - APPLICATION_SERVICE_URL=http://localhost:8080
+      - MESSAGING_SERVICE_URL=http://localhost:8080
+      - SMTP_SERVICE_URL=http://localhost:8080
+      - REPORTING_HISTORY_SERVICE_URL=http://localhost:8080
+      - MODERATION_SERVICE=http://localhost:8080
+      - IMM=http://localhost:8080
     volumes:
       - ./logs:/app/logs
     healthcheck:
