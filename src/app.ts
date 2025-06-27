@@ -24,6 +24,8 @@ app.get("/status", (req, res, next) => {
     })
 })
 
+app.set('trust proxy', true);
+
 app.use("/", routes)
 
 app.use((req, res, next) => {
