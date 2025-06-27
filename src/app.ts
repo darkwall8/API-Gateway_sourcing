@@ -25,21 +25,7 @@ app.get("/status", (req, res, next) => {
 })
 
 if (process.env.NODE_ENV === 'production') {
-    // Trust Railway's proxy and your specific gateway
-    const trustedProxies = ['127.0.0.1', 'loopback'];
-
-    // Add your gateway IP if it's acting as a proxy
-    if (process.env.GATEWAY_FORWARDER) {
-        trustedProxies.push(process.env.GATEWAY_FORWARDER);
-    }
-    if (process.env.GATEWAY_REAL_IP) {
-        trustedProxies.push(process.env.GATEWAY_REAL_IP);
-    }
-
-    app.set('trust proxy', trustedProxies);
-} else {
-    // In development, trust localhost and your gateway
-    app.set('trust proxy', ['127.0.0.1', 'loopback', process.env.GATEWAY_FORWARDER || '66.33.22.177']);
+    app.set('trust proxy', true);
 }
 
 app.use("/", routes)
