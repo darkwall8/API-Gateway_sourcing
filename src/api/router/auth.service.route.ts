@@ -4,6 +4,6 @@ import { authenticateService } from "../controllers/authenticate.controller";
 
 const routerAuth = Router()
 
-routerAuth.post('/api/service/auth', apiLimiter, authenticateService)
+routerAuth.post('/authenticate/app', apiLimiter, authenticateService)
 
 export default routerAuth;

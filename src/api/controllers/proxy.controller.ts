@@ -1,8 +1,9 @@
 import { createServiceProxy } from "../services/proxy.service";
 import { proxyConfig } from "../../config/proxy.config";
+import {logger} from "../../utils/logger";
 
 const createProfileManagementServiceProxy = () => {
-  createServiceProxy(
+  return createServiceProxy(
     'profile management service',
     proxyConfig.profileManagementService.target,
     proxyConfig.profileManagementService.pathRewrite
@@ -10,7 +11,7 @@ const createProfileManagementServiceProxy = () => {
 }
 
 const createOffersServiceProxy = () => {
-  createServiceProxy(
+  return createServiceProxy(
     'offers service',
     proxyConfig.offersService.target,
     proxyConfig.offersService.pathRewrite
@@ -18,7 +19,7 @@ const createOffersServiceProxy = () => {
 }
 
 const createApplicationServiceProxy = () => {
-  createServiceProxy(
+  return createServiceProxy(
     'application service',
     proxyConfig.applicationService.target,
     proxyConfig.applicationService.pathRewrite
@@ -26,7 +27,7 @@ const createApplicationServiceProxy = () => {
 }
 
 const createMessagingServiceProxy = () => {
-  createServiceProxy(
+  return createServiceProxy(
     'messaging service',
     proxyConfig.messagingService.target,
     proxyConfig.messagingService.pathRewrite
@@ -34,7 +35,7 @@ const createMessagingServiceProxy = () => {
 }
 
 const createMailServiceProxy = () => {
-  createServiceProxy(
+  return createServiceProxy(
     'mail service',
     proxyConfig.mailService.target,
     proxyConfig.mailService.pathRewrite
@@ -42,7 +43,7 @@ const createMailServiceProxy = () => {
 }
 
 const createReportingAndHistoryServiceProxy = () => {
-  createServiceProxy(
+  return createServiceProxy(
     'reporting service',
     proxyConfig.reportingAndHistoryService.target,
     proxyConfig.reportingAndHistoryService.pathRewrite
@@ -50,7 +51,7 @@ const createReportingAndHistoryServiceProxy = () => {
 }
 
 const createModerationServiceProxy = () => {
-  createServiceProxy(
+  return createServiceProxy(
     'moderation service',
     proxyConfig.moderationService.target,
     proxyConfig.moderationService.pathRewrite
@@ -58,7 +59,8 @@ const createModerationServiceProxy = () => {
 }
 
 const createIMMServiceProxy = () => {
-  createServiceProxy(
+  logger.info("IMM Service proxy")
+  return createServiceProxy(
       'IMM',
       proxyConfig.IMM.target,
       proxyConfig.IMM.pathRewrite

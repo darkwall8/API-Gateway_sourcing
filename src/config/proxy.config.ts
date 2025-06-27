@@ -82,11 +82,11 @@ export const proxyConfig = {
     secure: envVars.NODE_ENV === "production",
   },
   IMM: {
-      target: envVars.IMM,
-      pathRewrite: {
-          "^IMM": "/api/IMM",
-      },
-      changeOrigin: true,
-      secure: envVars.NODE_ENV === "production",
+    target: envVars.IMM,
+    pathRewrite: {
+      "^/api/service/database/": "/api/database/",
+    },
+    changeOrigin: true,
+    secure: envVars.NODE_ENV === "production",
   },
 };
