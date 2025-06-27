@@ -9,5 +9,8 @@ export const apiLimiter = rateLimit({
   message: {
     status: 'error',
     message: 'Too much request, please try later',
+  },
+  validate: {
+    trustProxy: false,
   }
 })
