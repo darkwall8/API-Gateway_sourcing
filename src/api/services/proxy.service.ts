@@ -21,9 +21,9 @@ export const createServiceProxy = (
         const expressReq = req as unknown as Request;
 
         // Header pour identifier le gateway
-        proxyReq.setHeader('X-Gateway-secret', '7fba8f98e172836d294b24d70b1842c94c795afa');
-        proxyReq.setHeader('X-Real-IP', '66.33.22.177');
-        proxyReq.setHeader('X-Forwarded-For', '66.33.22.177');
+        // proxyReq.setHeader('X-Gateway-secret', '7fba8f98e172836d294b24d70b1842c94c795afa');
+        // proxyReq.setHeader('X-Real-IP', '66.33.22.177');
+        // proxyReq.setHeader('X-Forwarded-For', '66.33.22.177');
 
         // Log des informations de la requête
         logger.info(`[${serviceName}] Proxy request:`, {
