@@ -9,7 +9,7 @@ interface CustomRequest extends Request {
     service?: string;
 }
 
-routerService.get('/api/service/data', (req:CustomRequest, res) => {
+routerService.get('/data', (req:CustomRequest, res) => {
     res.json({
         status: 'success',
         message: `Hello ${req.service}`,
@@ -17,13 +17,13 @@ routerService.get('/api/service/data', (req:CustomRequest, res) => {
     })
 })
 
-routerService.use('/api/service/mail', proxy.createMailServiceProxy)
-routerService.use('/api/service/database', proxy.createIMMServiceProxy)
-routerService.use('/api/service/moderation', proxy.createModerationServiceProxy)
-routerService.use('/api/service/application', proxy.createApplicationServiceProxy)
-routerService.use('/api/service/offers', proxy.createOffersServiceProxy)
-routerService.use('/api/service/reporting-history', proxy.createReportingAndHistoryServiceProxy)
-routerService.use('/api/service/messaging', proxy.createMessagingServiceProxy)
-routerService.use('/api/service/profile', proxy.createProfileManagementServiceProxy)
+routerService.use('/mail', proxy.createMailServiceProxy())
+routerService.use('/database', proxy.createIMMServiceProxy())
+routerService.use('/moderation', proxy.createModerationServiceProxy())
+routerService.use('/application', proxy.createApplicationServiceProxy())
+routerService.use('/offers', proxy.createOffersServiceProxy())
+routerService.use('/reporting-history', proxy.createReportingAndHistoryServiceProxy())
+routerService.use('/messaging', proxy.createMessagingServiceProxy())
+routerService.use('/profile', proxy.createProfileManagementServiceProxy())
 
 export default routerService;

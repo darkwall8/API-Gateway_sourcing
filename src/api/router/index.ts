@@ -23,11 +23,11 @@ router.get('/api/service/data', (req: CustomRequest, res) => {
 
 const defaultRoutes = [
     {
-        path: '/api/service/auth',
+        path: '/gateway',
         route: routerAuth
     },
     {
-        path: '/api/service/',
+        path: '/api/service',
         route: routerService
     }
 ]
